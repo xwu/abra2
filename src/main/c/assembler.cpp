@@ -13,6 +13,7 @@
 #include <sparsehash/dense_hash_map>
 #include <sparsehash/dense_hash_set>
 #include <stdexcept>
+#include <libgen.h>
 #include "abra_NativeAssembler.h"
 
 using namespace std;
@@ -805,7 +806,7 @@ struct contig {
 	vector<char*>* fragments;
 //	char seq[MAX_CONTIG_SIZE];
 	struct node* curr_node;
-	dense_hash_set<int, std::tr1::hash<int>, eqint>* visited_nodes;
+	dense_hash_set<int, std::hash<int>, eqint>* visited_nodes;
 	double score;
 //	int size;
 	int real_size;
@@ -819,7 +820,7 @@ struct contig* new_contig() {
 	//curr_contig->size = 0;
 	curr_contig->real_size = 0;
 	curr_contig->is_repeat = 0;
-	curr_contig->visited_nodes = new dense_hash_set<int, std::tr1::hash<int>, eqint>();
+	curr_contig->visited_nodes = new dense_hash_set<int, std::hash<int>, eqint>();
 	curr_contig->visited_nodes->set_empty_key(0);
 	curr_contig->score = 0;
 	curr_contig->fragments = new vector<char*>();
@@ -839,7 +840,7 @@ struct contig* copy_contig(struct contig* orig) {
 //	copy->size = orig->size;
 	copy->real_size = orig->real_size;
 	copy->is_repeat = orig->is_repeat;
-	copy->visited_nodes = new dense_hash_set<int, std::tr1::hash<int>, eqint>(*orig->visited_nodes);
+	copy->visited_nodes = new dense_hash_set<int, std::hash<int>, eqint>(*orig->visited_nodes);
 	copy->score = orig->score;
 	return copy;
 }
@@ -851,7 +852,7 @@ void free_contig(struct contig* contig) {
 }
 
 char is_node_visited(struct contig* contig, struct node* node) {
-	dense_hash_set<int, std::tr1::hash<int>, eqint>::const_iterator it = contig->visited_nodes->find(node->id);
+	dense_hash_set<int, std::hash<int>, eqint>::const_iterator it = contig->visited_nodes->find(node->id);
 	return it != contig->visited_nodes->end();
 }
 
