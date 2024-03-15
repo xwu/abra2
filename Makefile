@@ -12,13 +12,13 @@ mktargetdir:
 	mkdir target
 
 native: mktargetdir
-	g++ -g -O2 -I$(SRCDIR) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -shared -fPIC $(SRCDIR)/assembler.cpp $(SRCDIR)/sg_aligner.cpp -o target/libAbra.so
+	g++ -g -O2 -I$(SRCDIR) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin -shared -fPIC $(SRCDIR)/assembler.cpp $(SRCDIR)/sg_aligner.cpp -o target/libAbra.so
 
 standalone:
-	g++ -g -I$(SRCDIR) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux $(SRCDIR)/assembler.c -o abra
+	g++ -g -I$(SRCDIR) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin $(SRCDIR)/assembler.c -o abra
 
 sga:
-	g++ -g -O2 -I$(SRCDIR) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux $(SRCDIR)/sg_aligner.cpp -o sga
+	g++ -g -O2 -I$(SRCDIR) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin $(SRCDIR)/sg_aligner.cpp -o sga
 
 clean:
 	rm -rf target
